@@ -9,7 +9,7 @@ docker build -t aaronwolen/tiledbvcf-notebook:latest .
 Run
 
 ```
-docker run \
+docker run --rm \
   -p 8888:8888 \
   -v "$PWD":/home/jovyan/work \
   aaronwolen/tiledbvcf-notebook:latest
