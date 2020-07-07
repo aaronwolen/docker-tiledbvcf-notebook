@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 USER $NB_USER
 RUN conda install --quiet --yes \
     'bash_kernel' \
+    'conda-forge::tiledb-py=0.6.*' \
     'bioconda::bcftools=1.10.*' \
     'bioconda::pybedtools=0.8.*' \
     'tiledb::libtiledbvcf=0.4.*' \
