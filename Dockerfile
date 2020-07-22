@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:latest
+FROM jupyter/minimal-notebook:b90cce83f37b
 
 USER root
 RUN apt-get update && apt-get install --no-install-recommends -y \
