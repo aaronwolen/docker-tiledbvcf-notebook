@@ -22,6 +22,9 @@ docker run --rm \
 
 A second image is included that builds the CLI and Python module directly from the GitHub repo.
 
+Available build args:
+* `BRANCH`: which TileDB-VCF git branch to clone (default: `master`)
+
 ```
 docker build -f Dockerfile-dev -t aaronwolen/tiledbvcf-notebook:dev .
 ```

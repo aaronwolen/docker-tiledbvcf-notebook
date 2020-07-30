@@ -1,4 +1,5 @@
 FROM aaronwolen/tiledbvcf-notebook:latest
+ARG BRANCH=master
 
 ENV AWS_EC2_METADATA_DISABLED true
 ENV TILEDBVCF_FORCE_EXTERNAL_HTSLIB=OFF
@@ -17,7 +18,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists*
 
 WORKDIR /tmp
-RUN git clone https://github.com/TileDB-Inc/TileDB-VCF.git
+RUN git clone -b ${BRANCH} https://github.com/TileDB-Inc/TileDB-VCF.git
 
 # Build library and CLI
 WORKDIR /tmp/TileDB-VCF/libtiledbvcf/build
