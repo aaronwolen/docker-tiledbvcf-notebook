@@ -1,5 +1,7 @@
 FROM jupyter/minimal-notebook:b90cce83f37b
 
+ENV AWS_EC2_METADATA_DISABLED true
+
 USER root
 RUN apt-get update && apt-get install --no-install-recommends -y \
     tree \
