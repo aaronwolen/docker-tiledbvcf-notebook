@@ -1,0 +1,37 @@
+FROM aaronwolen/tiledbvcf-notebook:latest
+ARG BRANCH=master
+
+ENV AWS_EC2_METADATA_DISABLED true
+ENV TILEDBVCF_FORCE_EXTERNAL_HTSLIB=OFF
+
+# Remove Conda versions
+RUN conda remove --quiet --yes \
+    'libtiledbvcf' \
+    'tiledbvcf-py' \
+    && conda clean --all -f -y
+
+USER root
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    cmake \
+    && apt-get clean \
+    && apt-get purge -y \
+    && rm -rf /var/lib/apt/lists*
+
+WORKDIR /tmp
+RUN git clone -b ${BRANCH} https://github.com/TileDB-Inc/TileDB-VCF.git
+
+# Build library and CLI
+WORKDIR /tmp/TileDB-VCF/libtiledbvcf/build
+RUN cmake .. -DFORCE_EXTERNAL_HTSLIB=OFF -DOVERRIDE_INSTALL_PREFIX=OFF -DCMAKE_INSTALL_PREFIX="${CONDA_DIR}"
+RUN make -j8
+RUN make install-libtiledbvcf
+
+# Build Python module
+WORKDIR /tmp/TileDB-VCF/apis/python
+RUN conda env update -n base -f conda-env.yml \
+    && conda clean -a -y
+RUN python setup.py install --libtiledbvcf=/opt/conda
+RUN rm -rf /tmp/tiledbvcf
+
+USER $NB_USER
+WORKDIR /home/jovyan
