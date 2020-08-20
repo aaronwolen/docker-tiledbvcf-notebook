@@ -1,5 +1,13 @@
 # Jupyter Notebook for TileDB-VCF Development
 
+## Tags
+
+The `-dev` suffix specifies the `Dockerfile-dev` image.
+
+* `stable`, `stable-dev`: most recent tagged released
+* `latest`, `latest-dev`: latest version of `dev` branch
+* `test`, `test-dev`: latest version of `dev` branch
+
 ## Stable
 
 Build
