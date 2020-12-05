@@ -13,7 +13,7 @@ The `-dev` suffix specifies the `Dockerfile-dev` image.
 Build
 
 ```
-docker build -t aaronwolen/tiledbvcf-notebook:latest .
+docker build -t aaronwolen/tiledbvcf-notebook:stable .
 ```
 
 Run
@@ -36,3 +36,7 @@ Available build args:
 ```
 docker build -f Dockerfile-dev -t aaronwolen/tiledbvcf-notebook:dev .
 ```
+
+## Notes
+
+Built on the last version of `jupyter/minimal-notebook` that used python 3.7 since TileDB-VCF is still [pinned at python < 3.8](https://github.com/TileDB-Inc/TileDB-VCF/blob/2afe1dd5d2310350715ec865bba9d09d8a51c665/apis/python/setup.py#L306).

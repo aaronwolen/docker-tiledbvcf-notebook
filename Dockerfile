@@ -1,4 +1,4 @@
-FROM jupyter/minimal-notebook:b90cce83f37b
+FROM jupyter/minimal-notebook:54462805efcb
 
 ENV AWS_EC2_METADATA_DISABLED true
 
@@ -11,13 +11,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists*
 
 USER $NB_USER
-RUN conda install --quiet --yes \
-    'bash_kernel' \
-    'python=3.7.*' \
-    'bioconda::bcftools=1.10.*' \
-    'bioconda::pybedtools=0.8.*' \
-    'tiledb::libtiledbvcf=0.6.1' \
-    'tiledb::tiledbvcf-py=0.6.1' \
-    && conda clean --all -f -y
 
-RUN pip install git+https://github.com/TileDB-Inc/TileDB-Cloud-Py.git
+RUN conda install -c conda-forge -c bioconda -c tiledb --quiet --yes  \
+    'bash_kernel' \
+    'libtiledbvcf=0.6.*' \
+    'tiledbvcf-py=0.6.*' \
+    'bcftools=1.11.*' \
+  && conda clean --all -f -y
